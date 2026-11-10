@@ -1,0 +1,41 @@
+# All paths are relative to this file. One config describes one tissue image.
+sample: my_sample
+wsi_path: ../data/my_sample/image.btf
+mpp: 0.2738                 # Use the image's actual microns-per-pixel value.
+tile_um: 8.0
+work_dir: ../runs/my_sample # Generated features, patches, cell table, and ROI outputs.
+
+uni_checkpoint: ../weights/uni2-h/pytorch_model.bin
+cellvit_repo: ../third_party/CellViT
+cellvit_checkpoint: ../weights/cellvit/CellViT-SAM-H-x40.pth
+cellvit_python: ../.venv-cellvit/bin/python
+magnification: 40          # 20 or 40; must match the image and CellViT checkpoint.
+device: cuda
+gpu: 0
+reader: auto
+embedding_batch_size: 64
+embedding_workers: 4
+cellvit_batch_size: 8
+
+# Optional for paper-style Visium HD cell/bin aggregation; omit for H&E only.
+# This directory contains filtered_feature_bc_matrix.h5 and spatial/tissue_positions.parquet.
+hd_square_002um_dir: null
+
+rescope:
+  model:
+    base_roi_tiles: 164
+    base_stride_tiles: 7
+    prototype_grid_size: 8
+  train:
+    epochs: 30
+    seed: 42
+  selection:
+    min_cells: 6000
+    candidate_pool_size: 1000
+  # Fractions of the full embedding grid; change to restrict the sampled tissue area.
+  visium_hd_region:
+    source: ratio
+    top_ratio: 0.0
+    bottom_ratio: 1.0
+    left_ratio: 0.0
+    right_ratio: 1.0

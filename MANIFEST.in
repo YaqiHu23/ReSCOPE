@@ -1,0 +1,5 @@
+include LICENSE README.md requirements.txt run.sh launch.py SOURCE_MANIFEST.json
+recursive-include examples *.yaml
+recursive-include tests *.py
+include requirements-preprocess.txt requirements-cellvit.txt THIRD_PARTY.md
+recursive-include scripts *.sh

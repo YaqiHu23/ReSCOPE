@@ -1,0 +1,18 @@
+-r requirements.txt
+torch==2.8.0
+torchvision==0.23.0
+timm==1.0.14
+Pillow>=9.5,<12
+tifffile==2024.6.18
+zarr==2.18.2
+numcodecs<0.16
+imagecodecs==2024.12.30
+openslide-python==1.4.2
+openslide-bin>=4,<5
+ijson>=3.3,<4
+h5py>=3.9,<4
+pyarrow>=14,<20
+Shapely==1.8.5.post1
+tqdm>=4.65,<5
+huggingface_hub>=0.27,<1
+gdown>=5,<6

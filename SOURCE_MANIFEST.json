@@ -1,0 +1,388 @@
+{
+  "project": "ReSCOPE",
+  "release": "1.0.0",
+  "roi_budgets": [
+    1,
+    2,
+    3
+  ],
+  "training": "Fresh model initialization per budget; train-K is required to equal select-K.",
+  "paper_protocol_reference": "main_body/combinatorial_model_iterations/roi_budget_matched_scorer_20260920/protocol.json",
+  "core_sources": [
+    {
+      "source": "main_body/only_visium_hd_region_combinatorial/data/dataset.py",
+      "destination": "src/rescope/dataset.py",
+      "source_sha256": "f6a7da44b778888b846f57e04cf67737d5d7f3f2bcd8c2235db6ebf579b287b5",
+      "functions": null
+    },
+    {
+      "source": "main_body/only_visium_hd_region_combinatorial/utils/region.py",
+      "destination": "src/rescope/geometry.py",
+      "source_sha256": "5bd6e07d6c11f50e231a4cc3d715a6777fa7fde51940a2b2a28c3363e2555200",
+      "functions": null
+    },
+    {
+      "source": "main_body/only_visium_hd_region_combinatorial/models/roi_scorer.py",
+      "destination": "src/rescope/scorer.py",
+      "source_sha256": "45eff4538ffd4497469cd531630a2beab9fc425d21af5ef3d24a0b1c304f9048",
+      "functions": null
+    },
+    {
+      "source": "main_body/only_visium_hd_region_combinatorial/models/part_dictionary_model.py",
+      "destination": "src/rescope/model.py",
+      "source_sha256": "588ae03ac4f02e8995229f634693a88144487920a6221925076b4cb6f4c77bf7",
+      "functions": null
+    },
+    {
+      "source": "main_body/only_visium_hd_region_combinatorial/engine/trainer.py",
+      "destination": "src/rescope/trainer.py",
+      "source_sha256": "47bfcfb903bab7e23a3c8d8f814fb4cff736d781a8815ec1c94f55de120943a8",
+      "functions": null
+    },
+    {
+      "source": "main_body/combinatorial_model_iterations/scripts/select_mip_domain_generalized_rois.py",
+      "destination": "src/rescope/solver.py",
+      "source_sha256": "09007c42a29b973d41708aa78a4aa58ed76eb94ed5c47646d5a007f85a22a77b",
+      "functions": [
+        "adjusted_priority",
+        "build_celltype_upper_constraints",
+        "build_constraints",
+        "celltype_upper_mask",
+        "effective_domain_weights",
+        "exact_combo_has_overlap",
+        "exact_constraint_report",
+        "passes_celltype_upper",
+        "reference_fraction_attempts",
+        "solve_exact",
+        "solve_exact_vectorized",
+        "solve_mip"
+      ]
+    },
+    {
+      "source": "main_body/combinatorial_model_iterations/scripts/select_mip_bioprior_rois.py",
+      "destination": "src/rescope/overlap.py",
+      "source_sha256": "e3b74f1bdbc92b63d8c7ad6403a5db5816d46f67d5584b69d1ab87227b59c293",
+      "functions": [
+        "build_overlap_matrix"
+      ]
+    },
+    {
+      "source": "main_body/combinatorial_model_iterations/scripts/select_exact_topm_bioprior_rois.py",
+      "destination": "src/rescope/priority.py",
+      "source_sha256": "f4f6c8e0e209a168cd56c996a5e4dec327572b4fc8ff50ee0c2fc4e03a910055",
+      "functions": [
+        "single_roi_priority",
+        "write_metadata"
+      ]
+    },
+    {
+      "source": "main_body/combinatorial_model_iterations/scripts/select_nongreedy_topk_bioprior_rois.py",
+      "destination": "src/rescope/features.py",
+      "source_sha256": "e706bd989f7ffa32f466ad9baf567be874c2503b0cbf9de59b76cfb8dd85d92e",
+      "functions": [
+        "candidate_features"
+      ]
+    },
+    {
+      "source": "main_body/combinatorial_model_iterations/scripts/select_unified_cnn_bioprior_rois.py",
+      "destination": "src/rescope/cnn.py",
+      "source_sha256": "d32c7d71ca07299577535932d07b07f1f2a8aa5af8ab140a6d742db9447b5a06",
+      "functions": [
+        "build_joint_cluster_labels",
+        "l2_normalize",
+        "load_cnn_logits",
+        "zscore"
+      ]
+    },
+    {
+      "source": "main_body/combinatorial_model_iterations/scripts/select_celltype_adjacency_rois.py",
+      "destination": "src/rescope/biology.py",
+      "source_sha256": "ae49b8cb6d9cf9906b922274c7ca974d9c4c8fc127e24603d635c8acd3dcf81d",
+      "functions": [
+        "absolute_celltype_quota",
+        "adjacency_boundary_score",
+        "build_adjacency_integrals",
+        "build_celltype_integrals",
+        "build_feature_integrals",
+        "build_projected_region",
+        "choose_spatial_coordinates",
+        "cosine_similarity",
+        "distribution",
+        "filter_to_grid",
+        "infer_expression_proxy_cell_types",
+        "js_divergence",
+        "l2_normalize",
+        "load_cell_metadata",
+        "pair_key",
+        "rare_type_coverage",
+        "read_features",
+        "rect_count",
+        "rect_counts",
+        "rect_feature_sum"
+      ]
+    },
+    {
+      "source": "main_body/combinatorial_model_iterations/scripts/select_joint_cluster_rois.py",
+      "destination": "src/rescope/clustering.py",
+      "source_sha256": "df2891668032d99808d68657005ec7c9807336f2333733006ab220b6e9f2d69e",
+      "functions": [
+        "simple_kmeans"
+      ]
+    },
+    {
+      "source": "main_body/combinatorial_model_iterations/scripts/eval_celltype_balanced_rois.py",
+      "destination": "src/rescope/factory.py",
+      "source_sha256": "b93a31428a9ac582e2410fe615579c22d70cacf66c12f082d05833b377afc521",
+      "functions": [
+        "build_model"
+      ]
+    },
+    {
+      "source": "main_body/combinatorial_model_iterations/scripts/architecture_coverage.py",
+      "destination": "src/rescope/architecture.py",
+      "source_sha256": "672c4fe54bd7dbbcd4b3e7dfe0847f60534033770af2bd086ea227a1ef9b3197",
+      "functions": [
+        "_local_roi_prototypes",
+        "build_architecture_coverage_features",
+        "deterministic_spherical_kmeans",
+        "normalize_rows"
+      ]
+    }
+  ],
+  "packaged_modules": [
+    {
+      "file": "src/rescope/__init__.py",
+      "source": "tools/iscout_tool/src/iscout_tool/__init__.py",
+      "source_sha256": "b33960836f46c7af67dcbac859557016d1ee4c92b2373bea11c8b76725cdc62e",
+      "unchanged_from_source": false
+    },
+    {
+      "file": "src/rescope/__main__.py",
+      "source": "tools/iscout_tool/src/iscout_tool/__main__.py",
+      "source_sha256": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+      "unchanged_from_source": true
+    },
+    {
+      "file": "src/rescope/api.py",
+      "source": "tools/iscout_tool/src/iscout_tool/api.py",
+      "source_sha256": "88a4e531861943ca73ef78b31a2f63a31206eb5c1ccb02ea65ed020e4c2cf6f6",
+      "unchanged_from_source": false
+    },
+    {
+      "file": "src/rescope/architecture.py",
+      "source": "tools/iscout_tool/src/iscout_tool/architecture.py",
+      "source_sha256": "0af07c611b0f653e0b9e000c35407f6c0c77a392dc250d5d77ad316eaf424846",
+      "unchanged_from_source": true
+    },
+    {
+      "file": "src/rescope/batch.py",
+      "unchanged_from_source": false
+    },
+    {
+      "file": "src/rescope/biology.py",
+      "source": "tools/iscout_tool/src/iscout_tool/biology.py",
+      "source_sha256": "65776d50d497dc07462c65fe15b190f1ac4789ddce377e775f984fbb6cc5a424",
+      "unchanged_from_source": true
+    },
+    {
+      "file": "src/rescope/cli.py",
+      "source": "tools/iscout_tool/src/iscout_tool/cli.py",
+      "source_sha256": "07768c8d221601d3946fde14d60ffa746bf69b42a8c8976f29670813d1dc0598",
+      "unchanged_from_source": false
+    },
+    {
+      "file": "src/rescope/clustering.py",
+      "source": "tools/iscout_tool/src/iscout_tool/clustering.py",
+      "source_sha256": "b7505fbe4149215f51093ddd5df0a3c48d185cd0eac412940fd47381f597e7c4",
+      "unchanged_from_source": true
+    },
+    {
+      "file": "src/rescope/cnn.py",
+      "source": "tools/iscout_tool/src/iscout_tool/cnn.py",
+      "source_sha256": "0f60f31882dbb6b0a5e11cabb22246b5d1320dbe29ce821ee88801d79146f315",
+      "unchanged_from_source": true
+    },
+    {
+      "file": "src/rescope/config.py",
+      "source": "tools/iscout_tool/src/iscout_tool/config.py",
+      "source_sha256": "7da1cbfc7798e1c12f210a4ac4d46d263a9131958f358051765e9fc7e29a8115",
+      "unchanged_from_source": false
+    },
+    {
+      "file": "src/rescope/dataset.py",
+      "source": "tools/iscout_tool/src/iscout_tool/dataset.py",
+      "source_sha256": "30a40459763b7e7b979a0b84ee0d391e530a2a635a7f10b1b279c02b2774f7f8",
+      "unchanged_from_source": false
+    },
+    {
+      "file": "src/rescope/demo.py",
+      "source": "tools/iscout_tool/src/iscout_tool/demo.py",
+      "source_sha256": "5c40e023c333de63ca6f1844a285bab4c023c6129666cd7cbf46698991b4ee73",
+      "unchanged_from_source": true
+    },
+    {
+      "file": "src/rescope/factory.py",
+      "source": "tools/iscout_tool/src/iscout_tool/factory.py",
+      "source_sha256": "87c78a8ea6799b36eb7096a593f2a654fff5f85809dc9cec9c674bb2f85a8545",
+      "unchanged_from_source": true
+    },
+    {
+      "file": "src/rescope/features.py",
+      "source": "tools/iscout_tool/src/iscout_tool/features.py",
+      "source_sha256": "e00823f13dda5c261e2d6ef238252f9ee60f5f760fa094b663d4477d04f9e610",
+      "unchanged_from_source": false
+    },
+    {
+      "file": "src/rescope/geometry.py",
+      "source": "tools/iscout_tool/src/iscout_tool/geometry.py",
+      "source_sha256": "5bd6e07d6c11f50e231a4cc3d715a6777fa7fde51940a2b2a28c3363e2555200",
+      "unchanged_from_source": false
+    },
+    {
+      "file": "src/rescope/model.py",
+      "source": "tools/iscout_tool/src/iscout_tool/model.py",
+      "source_sha256": "948e4eeb3751860a24ba707ab12563f03e2cc38aa2eeeb71f37ca7328902a8f7",
+      "unchanged_from_source": true
+    },
+    {
+      "file": "src/rescope/overlap.py",
+      "source": "tools/iscout_tool/src/iscout_tool/overlap.py",
+      "source_sha256": "66af9dff01fc96dd38cb5af139bb2e528945f9c81d12d1733c56190ccab91085",
+      "unchanged_from_source": true
+    },
+    {
+      "file": "src/rescope/priority.py",
+      "source": "tools/iscout_tool/src/iscout_tool/priority.py",
+      "source_sha256": "1a3d11766f3c305c07a98bb234f1ce14db4ef25d6f31e9e3563a0eaf1e1b2f6b",
+      "unchanged_from_source": false
+    },
+    {
+      "file": "src/rescope/scorer.py",
+      "source": "tools/iscout_tool/src/iscout_tool/scorer.py",
+      "source_sha256": "45eff4538ffd4497469cd531630a2beab9fc425d21af5ef3d24a0b1c304f9048",
+      "unchanged_from_source": true
+    },
+    {
+      "file": "src/rescope/solver.py",
+      "source": "tools/iscout_tool/src/iscout_tool/solver.py",
+      "source_sha256": "5d22ff94f07a2d6fbe93584933d1bb1bee2c811ba2c9ad6e43ad384586ff7bec",
+      "unchanged_from_source": true
+    },
+    {
+      "file": "src/rescope/trainer.py",
+      "source": "tools/iscout_tool/src/iscout_tool/trainer.py",
+      "source_sha256": "47bfcfb903bab7e23a3c8d8f814fb4cff736d781a8815ec1c94f55de120943a8",
+      "unchanged_from_source": true
+    },
+    {
+      "file": "src/rescope/workflow.py",
+      "source": "tools/iscout_tool/src/iscout_tool/workflow.py",
+      "source_sha256": "4d0c83eaa3fa4f2a355f032b0eed37190e9f52ac7067fbe8e817217bbcc77a71",
+      "unchanged_from_source": false
+    }
+  ],
+  "changes": [
+    "Independent training and matching selection for budgets 1, 2, and 3; no bundled pretrained weights",
+    "One YAML config and explicit WSI preprocessing stages plus complete-pipeline entry point",
+    "Separate pinned environments for UNI2-h/ReSCOPE and CellViT",
+    "CellViT patch row=y/col=x, global centroids and contours=xy, bounding boxes=row_col, aligned with pinned upstream",
+    "New preprocessing configs record exact integer tile pitch and full grid shape; old configs without these fields retain prior geometry behavior",
+    "Optional original HD bin-assignment/aggregation functions with a direct-path interface; no historical dataset-manifest workflow",
+    "Synthetic preprocessing and input-to-ROI integration tests; no claim of full-slide GPU validation"
+  ],
+  "release_file_sha256": {
+    ".github/workflows/tests.yml": "3b1069d5b233d77306d65187a1822414533486cd18b96929416c3b5880e6848a",
+    ".gitignore": "31177e122f7b19abeba9506724fbad804d95b81ccaacecd0c77365df7fb3d302",
+    "LICENSE": "9dbe4f39883ccdab9566792c3682a9335d07043b3ee7d4f5f260e8c2cb4fa871",
+    "MANIFEST.in": "886bbec9976667e1a919bcedc14ec52834da6d9cc5736df60a4017a4bd145a26",
+    "README.md": "35d443a0e654eba393e3894a019a9633bcdd71ed003a62564021a676db0578db",
+    "THIRD_PARTY.md": "19f1d72975ea79d4b1ec909c27233cde82d2ce0146e686a2cac8c3bd817cacf2",
+    "examples/config.yaml": "21a6745e54b11fd275d8c6f2cde1b857be8731ff472c80bc394c667eb1ff1801",
+    "examples/pipeline.yaml": "57aabe524e60b9b9c7847020d06626257c2c7a5e61c4476277b5115cd3d856d9",
+    "launch.py": "da4892b1e6e10a334aca1a029bb6d230b43283e15543bdfa728ff9b82e6f9a09",
+    "pyproject.toml": "87b0272ddc060afaeca4049b19b721ad4fe89cb8bd776e50366e8821c9a597d9",
+    "requirements-cellvit.txt": "b72b1b595a99731306b71712f39dc1fc397ef5e7787e7d3694104169cffdcfd0",
+    "requirements-preprocess.txt": "2a30119eea2d5d61dfe0763fb5735b13c9d6d78a03c1034debf59c0fc1355162",
+    "requirements.txt": "65f86770e97762d8aa71e92f7a00aa9d6ae8dcb62c1eddc737dc9d08e5e82703",
+    "run.sh": "bda98268aa1cfd758ed40642e376334a72f405fe2952994b44632a81e7b0f75c",
+    "scripts/setup_preprocessing.sh": "128fc3a0565ac4d287540b9e54ec2ffee09498d8b009f14054bc7e629347fa44",
+    "src/rescope/__init__.py": "f1005c544a416ab5eee53e02f875983fddd68894735c2a1669e47857ba60b9a9",
+    "src/rescope/__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+    "src/rescope/api.py": "9f33269575fdf571a2cc92df476a4b0e1a586063586c64496ff6482c4f07faf7",
+    "src/rescope/architecture.py": "0af07c611b0f653e0b9e000c35407f6c0c77a392dc250d5d77ad316eaf424846",
+    "src/rescope/batch.py": "bac6dd2fcf2efc4023a77fc1e22ec9bb8fe04ba6472e047768365029afdf1ec9",
+    "src/rescope/biology.py": "65776d50d497dc07462c65fe15b190f1ac4789ddce377e775f984fbb6cc5a424",
+    "src/rescope/cli.py": "a0472e8e922ed4a1eeb4abc5604ada60350353eccafaa3c4bd951a7581f9b417",
+    "src/rescope/clustering.py": "b7505fbe4149215f51093ddd5df0a3c48d185cd0eac412940fd47381f597e7c4",
+    "src/rescope/cnn.py": "0f60f31882dbb6b0a5e11cabb22246b5d1320dbe29ce821ee88801d79146f315",
+    "src/rescope/config.py": "d11047f8f6fb49adbbc6e8d9b0965cf244e6ffd91c3a6b9ac6358d73226438cd",
+    "src/rescope/dataset.py": "8a588d2603bd4d85b5a412e7fb6cd1e399637d5705d33fac82b65b7122e6bbf6",
+    "src/rescope/demo.py": "5c40e023c333de63ca6f1844a285bab4c023c6129666cd7cbf46698991b4ee73",
+    "src/rescope/factory.py": "87c78a8ea6799b36eb7096a593f2a654fff5f85809dc9cec9c674bb2f85a8545",
+    "src/rescope/features.py": "cc81c14c60cc61f9e31c485e222328a6dda7352b39a4cee3678a51f9c21417ad",
+    "src/rescope/geometry.py": "391802914cdb0324bff66a366438d6cdb5419570055d8fdf71a184de9a872609",
+    "src/rescope/model.py": "948e4eeb3751860a24ba707ab12563f03e2cc38aa2eeeb71f37ca7328902a8f7",
+    "src/rescope/overlap.py": "66af9dff01fc96dd38cb5af139bb2e528945f9c81d12d1733c56190ccab91085",
+    "src/rescope/preprocessing/__init__.py": "745294f286b99f09937d6c6ac7cd9ea6ad25977aa732da8ffa12eeefd24c9ace",
+    "src/rescope/preprocessing/cells.py": "6a2e7c14ffbe692d90bd8061d5f5b74041573753d1ba34cb52dfb6f041d1e951",
+    "src/rescope/preprocessing/cellvit.py": "8a96717a5bfc34506c35282fafa713273f597899367ee2014c630b008ea22db0",
+    "src/rescope/preprocessing/hd_cells.py": "9669c55813cd0d59086c363e468807a04dafaaf00715900de28ec6c6fe3371b2",
+    "src/rescope/preprocessing/image_io.py": "4e5b59e4e59a68afed2e81398de847c2c40b9f7660f568559c4fd9ddc4454bce",
+    "src/rescope/preprocessing/patches.py": "3ba1de80d3899d4afff9dfea55fa776fa8a91f1540cdb668540a0582dc210a72",
+    "src/rescope/preprocessing/pipeline.py": "c6b698f7962f8b5a8ae9eb0dad2b1578d76f8833bc2e55ef0a76163684b3ccb1",
+    "src/rescope/preprocessing/uni.py": "6b78c8a36a45df94d1a16fddb63f68a02bae46408c42cb2b6d3d3ab84ce9794a",
+    "src/rescope/priority.py": "9966c512bfb5372f4c0a961ec93661e3ffb083f7d44ab062a5c47df8f721c693",
+    "src/rescope/py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/rescope/scorer.py": "45eff4538ffd4497469cd531630a2beab9fc425d21af5ef3d24a0b1c304f9048",
+    "src/rescope/solver.py": "5d22ff94f07a2d6fbe93584933d1bb1bee2c811ba2c9ad6e43ad384586ff7bec",
+    "src/rescope/trainer.py": "47bfcfb903bab7e23a3c8d8f814fb4cff736d781a8815ec1c94f55de120943a8",
+    "src/rescope/workflow.py": "948b3f72198badb02e832b47c55f4c9adfe69755c042465066bb2b2776310e77",
+    "tests/test_batch.py": "7b28640156d1dc66119a034c07f6fe8fbdfdbff397f5be8b0b1f2bd81edc16a3",
+    "tests/test_preprocessing.py": "f822eca4883d46cb812bf028b9ea762293a03cde5cea825e2f3bbfeaf9bd8cfa",
+    "tests/test_python_api.py": "d8e3137fc449fbe0eb3a67e54932adc212f3a793a14960f61b0ce9c5d465b511",
+    "tests/test_workflow.py": "070d9c26d6a9d98a3dc582dcb15f650410de9b88f9df095e5b3eca6b48c44cce"
+  },
+  "scope": "WSI to UNI2-h embeddings, CellViT annotations, optional Visium HD bin-to-cell aggregation, independent ROI budgets 1/2/3",
+  "preprocessing_sources": [
+    {
+      "source": "main_body/lazy_preprocessing/lazy_uni_embedding.py",
+      "source_sha256": "7a9792eb2944ac753f1cf5f531408e18ae97025cf05249763e9a2a48595d9472",
+      "destinations": [
+        "src/rescope/preprocessing/uni.py",
+        "src/rescope/preprocessing/image_io.py"
+      ]
+    },
+    {
+      "source": "cleaned_pipeline/cellvit_scripts/cellvit_preprocessing.py",
+      "source_sha256": "c948c521beb40a7ea66a4bdf224727f1ca956eda30e795f5ae59eb3518ac2b0a",
+      "destinations": [
+        "src/rescope/preprocessing/patches.py"
+      ]
+    },
+    {
+      "source": "cleaned_pipeline/cellvit_scripts/cellvit_inference.py",
+      "source_sha256": "10df077503121a7f85056d8186a3fb8ebe516d096258d10b1ccdfa9c966ffc56",
+      "destinations": [
+        "src/rescope/preprocessing/cellvit.py"
+      ]
+    },
+    {
+      "source": "cleaned_pipeline/single_cell_merge_scrips/aggregate_hd_cells_from_002um.py",
+      "source_sha256": "2848d265de552cfaa55407aacb12dc9b016f614db6501b7ea9cb1a83167a593e",
+      "destinations": [
+        "src/rescope/preprocessing/hd_cells.py"
+      ]
+    }
+  ],
+  "external_dependencies": {
+    "CellViT": {
+      "url": "https://github.com/TIO-IKIM/CellViT",
+      "commit": "05097e18e3d194a65121042f631b5753069f5ee3",
+      "included": false
+    },
+    "UNI2-h": {
+      "url": "https://huggingface.co/MahmoodLab/UNI2-h",
+      "weights_included": false
+    }
+  }
+}

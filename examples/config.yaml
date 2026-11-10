@@ -1,0 +1,36 @@
+# Paths are relative to this file; absolute paths and ${ENV_VAR} also work.
+data:
+  embedding_dir: ../data/my_sample/embeddings
+  single_cell_dir: ../data/my_sample/cells
+  feature_dim: 1536
+  tile_um: 8.0
+  mpp: 0.2738  # Replace with the actual slide resolution (microns per pixel).
+  tile_px: null  # Set the actual integer tile pitch from the extraction manifest, if available.
+  grid_shape: null  # Set [num_tiles_y, num_tiles_x] from that manifest, if available.
+
+# Use the full grid, or restrict these fractions to the tissue region of interest.
+visium_hd_region:
+  source: ratio
+  top_ratio: 0.0
+  bottom_ratio: 1.0
+  left_ratio: 0.0
+  right_ratio: 1.0
+
+model:
+  base_roi_tiles: 164
+  base_stride_tiles: 7
+  scale_roi_to_region: false
+  prototype_grid_size: 8
+
+train:
+  epochs: 30
+  device: auto
+  seed: 42
+
+selection:
+  solver: exact
+  min_cells: 6000
+  candidate_pool_size: 1000
+
+runtime:
+  threads: 4

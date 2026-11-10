@@ -1,0 +1,15 @@
+# Separate environment: CellViT uses an older NumPy/SciPy stack.
+torch==2.8.0
+torchvision==0.23.0
+numpy==1.22.4
+scipy==1.8.1
+pandas==1.5.3
+Pillow==9.5.0
+opencv-python-headless==4.5.4.58
+scikit-image==0.19.3
+Shapely==1.8.5.post1
+pandarallel==1.6.5
+einops==0.6.1
+ujson==5.8.0
+PyYAML==6.0
+tqdm==4.65.0
