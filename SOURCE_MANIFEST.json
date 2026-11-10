@@ -291,7 +291,7 @@
     "Synthetic preprocessing and input-to-ROI integration tests; no claim of full-slide GPU validation"
   ],
   "release_file_sha256": {
-    ".github/workflows/tests.yml": "3b1069d5b233d77306d65187a1822414533486cd18b96929416c3b5880e6848a",
+    ".github/workflows/tests.yml": "a8f8ceb7513270e4395262d9525edd69ef5cc408a507383717e1fad109a18173",
     ".gitignore": "31177e122f7b19abeba9506724fbad804d95b81ccaacecd0c77365df7fb3d302",
     "LICENSE": "9dbe4f39883ccdab9566792c3682a9335d07043b3ee7d4f5f260e8c2cb4fa871",
     "MANIFEST.in": "886bbec9976667e1a919bcedc14ec52834da6d9cc5736df60a4017a4bd145a26",
