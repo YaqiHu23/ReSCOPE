@@ -21,6 +21,10 @@ cellvit_batch_size: 8
 # This directory contains filtered_feature_bc_matrix.h5 and spatial/tissue_positions.parquet.
 hd_square_002um_dir: null
 
+# Optional: set to downstream.yaml after configuring its paths, gene panel and weights.
+# With measured counts available, the full pipeline will then run BLEEP and iSTAR too.
+downstream_config: null
+
 rescope:
   model:
     base_roi_tiles: 164

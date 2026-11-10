@@ -44,7 +44,7 @@ if ! check_dependencies "$PYTHON_BIN"; then
     fi
 fi
 case "$1" in
-    run|train|select|validate|demo|pipeline)
+    run|train|select|validate|demo|pipeline|downstream)
         exec "$PYTHON_BIN" -I -B -u "$ROOT/launch.py" "$@" ;;
     *)
         exec "$PYTHON_BIN" -I -B -u "$ROOT/launch.py" run "$@" ;;

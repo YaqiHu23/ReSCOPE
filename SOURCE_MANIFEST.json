@@ -1,6 +1,6 @@
 {
   "project": "ReSCOPE",
-  "release": "1.0.0",
+  "release": "1.1.0",
   "roi_budgets": [
     1,
     2,
@@ -288,36 +288,61 @@
     "CellViT patch row=y/col=x, global centroids and contours=xy, bounding boxes=row_col, aligned with pinned upstream",
     "New preprocessing configs record exact integer tile pitch and full grid shape; old configs without these fields retain prior geometry behavior",
     "Optional original HD bin-assignment/aggregation functions with a direct-path interface; no historical dataset-manifest workflow",
-    "Synthetic preprocessing and input-to-ROI integration tests; no claim of full-slide GPU validation"
+    "Synthetic preprocessing and input-to-ROI integration tests; no claim of full-slide GPU validation",
+    "Downstream prepare/bleep/istar/summarize stages and optional full-pipeline integration for independent ROI budgets",
+    "Pinned official BLEEP/iSTAR code fetched separately; public pretrained weight download instructions; no internal checkpoints",
+    "Shared fixed gene panel and explicit full-resolution x,y coordinates; reference expression only in training processes",
+    "Per-run and common-query-intersection evaluation, with finite-prediction validation and explicit iSTAR exclusions",
+    "Preserve virtual-environment interpreter symlinks when resolving BLEEP/iSTAR/CellViT Python paths"
   ],
   "release_file_sha256": {
-    ".github/workflows/tests.yml": "a8f8ceb7513270e4395262d9525edd69ef5cc408a507383717e1fad109a18173",
-    ".gitignore": "31177e122f7b19abeba9506724fbad804d95b81ccaacecd0c77365df7fb3d302",
+    ".gitattributes": "fa7ea5aa409b63c5d8e3c4891f451f05474a9c2a6c4ef9f0f9f4fbae91cc8f13",
+    ".github/workflows/tests.yml": "e11b000b60145089e5647f002e36bf4cd2d49e20a5237f2660e423e569acf0cd",
+    ".gitignore": "5d00c1356f28394d03662bd683f6d6f56a7111fa2f70fd2dd3ef90b5507542b9",
     "LICENSE": "9dbe4f39883ccdab9566792c3682a9335d07043b3ee7d4f5f260e8c2cb4fa871",
-    "MANIFEST.in": "886bbec9976667e1a919bcedc14ec52834da6d9cc5736df60a4017a4bd145a26",
-    "README.md": "35d443a0e654eba393e3894a019a9633bcdd71ed003a62564021a676db0578db",
-    "THIRD_PARTY.md": "19f1d72975ea79d4b1ec909c27233cde82d2ce0146e686a2cac8c3bd817cacf2",
+    "MANIFEST.in": "e01cb338fb6750c81196e928f645ec0b59244d285baec43ff47b8af02f476f36",
+    "README.md": "84dbcf6e09e8a7907aaf4a6675147b4ba8e8f7f59f254a4100bed196ad73dc43",
+    "THIRD_PARTY.md": "bac1d9509e1b88b25d5a8571397a47d2abe692408cfd339b2dbae309f8380af6",
+    "docs/downstream.md": "0bad6f8007d4346369b91c2ef50646f9cd49c8824103e8f154c49ec77b6dcdcd",
     "examples/config.yaml": "21a6745e54b11fd275d8c6f2cde1b857be8731ff472c80bc394c667eb1ff1801",
-    "examples/pipeline.yaml": "57aabe524e60b9b9c7847020d06626257c2c7a5e61c4476277b5115cd3d856d9",
+    "examples/downstream.yaml": "7bdd3797ec1cd3b1565609b886133d59d0ab231360a5fec6ae71acbec1a62829",
+    "examples/pipeline.yaml": "e8ddd1ca992cc1302cbb1a35c710ca455bb780b8ab4009852c7567639501179d",
     "launch.py": "da4892b1e6e10a334aca1a029bb6d230b43283e15543bdfa728ff9b82e6f9a09",
-    "pyproject.toml": "87b0272ddc060afaeca4049b19b721ad4fe89cb8bd776e50366e8821c9a597d9",
+    "licenses/iSTAR-GPL-3.0.txt": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+    "patches/istar-training.patch": "7c6724082e12917232dff1873d12cf8694b012389f9fbff146282abca255d186",
+    "pyproject.toml": "56e69b042ed1686902b3e62d15079dde4a5cc56086221f4dc892b8b1819f94c7",
+    "requirements-bleep.txt": "3da0bfaefd404afa613a46b5d72fbd7d791a328f209a7ef4b39c368c63976392",
     "requirements-cellvit.txt": "b72b1b595a99731306b71712f39dc1fc397ef5e7787e7d3694104169cffdcfd0",
+    "requirements-istar.txt": "78656af6a34af00d0e912e67ce633b4898edfef804d9812cff3201bddceb1bd1",
     "requirements-preprocess.txt": "2a30119eea2d5d61dfe0763fb5735b13c9d6d78a03c1034debf59c0fc1355162",
     "requirements.txt": "65f86770e97762d8aa71e92f7a00aa9d6ae8dcb62c1eddc737dc9d08e5e82703",
-    "run.sh": "bda98268aa1cfd758ed40642e376334a72f405fe2952994b44632a81e7b0f75c",
+    "run.sh": "9600a579ec27b160c0a065c1b18756c1123bdbe74f988864891cc22e97f1517e",
+    "scripts/setup_downstream.sh": "b12c1a6ee9d388001fc21809e7b7714db0923dd7bbbc407d39752bd064b61069",
+    "scripts/setup_downstream_repos.py": "615c5b8f23296aacff8eeac76f347e24d149d8f62c4d014ac5b5d5ffb1a10f59",
     "scripts/setup_preprocessing.sh": "128fc3a0565ac4d287540b9e54ec2ffee09498d8b009f14054bc7e629347fa44",
-    "src/rescope/__init__.py": "f1005c544a416ab5eee53e02f875983fddd68894735c2a1669e47857ba60b9a9",
+    "src/rescope/__init__.py": "7f65ccec228ef8aeecab9777208deacb2f84318b1ba4aeee8f027fc85661a0f6",
     "src/rescope/__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
     "src/rescope/api.py": "9f33269575fdf571a2cc92df476a4b0e1a586063586c64496ff6482c4f07faf7",
     "src/rescope/architecture.py": "0af07c611b0f653e0b9e000c35407f6c0c77a392dc250d5d77ad316eaf424846",
     "src/rescope/batch.py": "bac6dd2fcf2efc4023a77fc1e22ec9bb8fe04ba6472e047768365029afdf1ec9",
     "src/rescope/biology.py": "65776d50d497dc07462c65fe15b190f1ac4789ddce377e775f984fbb6cc5a424",
-    "src/rescope/cli.py": "a0472e8e922ed4a1eeb4abc5604ada60350353eccafaa3c4bd951a7581f9b417",
+    "src/rescope/cli.py": "64eda17e2521032c59ca9600585e1f1ab64ef760f02cbbf2794055507cdef9cd",
     "src/rescope/clustering.py": "b7505fbe4149215f51093ddd5df0a3c48d185cd0eac412940fd47381f597e7c4",
     "src/rescope/cnn.py": "0f60f31882dbb6b0a5e11cabb22246b5d1320dbe29ce821ee88801d79146f315",
-    "src/rescope/config.py": "d11047f8f6fb49adbbc6e8d9b0965cf244e6ffd91c3a6b9ac6358d73226438cd",
+    "src/rescope/config.py": "ac1508099879dac9c2c7ddb57a7e84e64fbb82a5f354c4a8ddd2fbfe8e489543",
     "src/rescope/dataset.py": "8a588d2603bd4d85b5a412e7fb6cd1e399637d5705d33fac82b65b7122e6bbf6",
     "src/rescope/demo.py": "5c40e023c333de63ca6f1844a285bab4c023c6129666cd7cbf46698991b4ee73",
+    "src/rescope/downstream/__init__.py": "47a4fad5b337e73ccdb0d2bf31b776e89fbff7f4dbe86b38508ee438e73f6693",
+    "src/rescope/downstream/bleep.py": "d6a1bfdc0c30c9fbaf0f787cfe7e814aa8873b432de5e308de86da47a0af4870",
+    "src/rescope/downstream/bleep_expression.py": "82884c55aadc1d248566cc85af3c80d3c41dada90b03149a8b10ba23bfe8ee61",
+    "src/rescope/downstream/bleep_predict.py": "5056f436b6d314d6aea317fbed303359fe0ee3f88b911d256f912172b4946b97",
+    "src/rescope/downstream/bleep_train.py": "26e09c2a77a9b6be8ddbd791012a2eaba172622f7405d4a899d73b77eaa80d8e",
+    "src/rescope/downstream/common.py": "ffe6a0c36f7255e6175c474c8ac95f770eb5d1d69504d87c469f708387a05224",
+    "src/rescope/downstream/external.py": "916d3ab61e7cde49c3a49413b4fc2b75f0e93049b44145fc199bb91ae7864596",
+    "src/rescope/downstream/istar.py": "662f555beb1b355d27b84ba80ba394e70a8d5a55e6008415e12fb7321a53a795",
+    "src/rescope/downstream/istar_train.py": "bb5fb43b0d742ca5ce339887e369511cd5fa5d3e2857408bfd3a3b45a93b4073",
+    "src/rescope/downstream/pipeline.py": "4ad0d4c9f16ccacfc4dfdd5988136ad21317c632a1c65f6c72b2ff31df5bfa79",
+    "src/rescope/downstream/prepare.py": "d6cc4254f371eae4e9e31fc416299484ee9554bbc407d9779234cb2730c87915",
     "src/rescope/factory.py": "87c78a8ea6799b36eb7096a593f2a654fff5f85809dc9cec9c674bb2f85a8545",
     "src/rescope/features.py": "cc81c14c60cc61f9e31c485e222328a6dda7352b39a4cee3678a51f9c21417ad",
     "src/rescope/geometry.py": "391802914cdb0324bff66a366438d6cdb5419570055d8fdf71a184de9a872609",
@@ -329,7 +354,7 @@
     "src/rescope/preprocessing/hd_cells.py": "9669c55813cd0d59086c363e468807a04dafaaf00715900de28ec6c6fe3371b2",
     "src/rescope/preprocessing/image_io.py": "4e5b59e4e59a68afed2e81398de847c2c40b9f7660f568559c4fd9ddc4454bce",
     "src/rescope/preprocessing/patches.py": "3ba1de80d3899d4afff9dfea55fa776fa8a91f1540cdb668540a0582dc210a72",
-    "src/rescope/preprocessing/pipeline.py": "c6b698f7962f8b5a8ae9eb0dad2b1578d76f8833bc2e55ef0a76163684b3ccb1",
+    "src/rescope/preprocessing/pipeline.py": "a018f04c31dc9427cfdee450e7e1ac9148f0a5f7bf3556670a5fc30149d960ca",
     "src/rescope/preprocessing/uni.py": "6b78c8a36a45df94d1a16fddb63f68a02bae46408c42cb2b6d3d3ab84ce9794a",
     "src/rescope/priority.py": "9966c512bfb5372f4c0a961ec93661e3ffb083f7d44ab062a5c47df8f721c693",
     "src/rescope/py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -338,11 +363,12 @@
     "src/rescope/trainer.py": "47bfcfb903bab7e23a3c8d8f814fb4cff736d781a8815ec1c94f55de120943a8",
     "src/rescope/workflow.py": "948b3f72198badb02e832b47c55f4c9adfe69755c042465066bb2b2776310e77",
     "tests/test_batch.py": "7b28640156d1dc66119a034c07f6fe8fbdfdbff397f5be8b0b1f2bd81edc16a3",
+    "tests/test_downstream.py": "b0512c19c2451784f2b15b56202e4a4c719812d73c0fcc4ea5be90e5b69f9d6d",
     "tests/test_preprocessing.py": "f822eca4883d46cb812bf028b9ea762293a03cde5cea825e2f3bbfeaf9bd8cfa",
     "tests/test_python_api.py": "d8e3137fc449fbe0eb3a67e54932adc212f3a793a14960f61b0ce9c5d465b511",
     "tests/test_workflow.py": "070d9c26d6a9d98a3dc582dcb15f650410de9b88f9df095e5b3eca6b48c44cce"
   },
-  "scope": "WSI to UNI2-h embeddings, CellViT annotations, optional Visium HD bin-to-cell aggregation, independent ROI budgets 1/2/3",
+  "scope": "WSI to UNI2-h embeddings, CellViT annotations, optional Visium HD bin-to-cell aggregation, independent ROI budgets 1/2/3; ROI-supervised BLEEP and iSTAR training, outside-ROI prediction and evaluation",
   "preprocessing_sources": [
     {
       "source": "main_body/lazy_preprocessing/lazy_uni_embedding.py",
@@ -383,6 +409,64 @@
     "UNI2-h": {
       "url": "https://huggingface.co/MahmoodLab/UNI2-h",
       "weights_included": false
+    },
+    "BLEEP": {
+      "url": "https://github.com/bowang-lab/BLEEP",
+      "commit": "23959670c7407510c1716a173184bdcc18833a35",
+      "included": false
+    },
+    "iSTAR": {
+      "url": "https://github.com/daviddaiweizhang/istar",
+      "commit": "3cb0e5352a86df337f41c5841d0808da0003457b",
+      "included": false,
+      "local_patch": "patches/istar-training.patch"
     }
-  }
+  },
+  "downstream_sources": [
+    {
+      "source": "pipeline_models/bleep_run_files/run_single_cell_bleep.py",
+      "source_sha256": "03e3d5f724a8176d376fae4869bb4eb6d648c3d6aa628769b9f1facdd658d6e3",
+      "destination": "src/rescope/downstream/bleep_train.py"
+    },
+    {
+      "source": "pipeline_models/bleep_run_files/predict_single_cell_bleep.py",
+      "source_sha256": "e4f23eb66fdffc6c0315bc1920b8085341fcbbdc3286dd5e519ebc108837cc78",
+      "destination": "src/rescope/downstream/bleep_predict.py"
+    },
+    {
+      "source": "pipeline_models/istar_run_files/run_single_cell_istar.py",
+      "source_sha256": "b8734e88cad46d9f1c64182364f6c19741d599a4c762d66ba9f482c2af402c18",
+      "destination": "src/rescope/downstream/istar_train.py"
+    },
+    {
+      "source": "only_visium_region/scripts/common/run_visium_hd_roi_bleep.py",
+      "source_sha256": "24d8c57aac73c7a35531beb8087a610a0eaac0cda0f4fbe67ecd0f63c9478571",
+      "destination": "src/rescope/downstream/bleep.py"
+    },
+    {
+      "source": "only_visium_region/scripts/common/run_visium_hd_roi_istar.py",
+      "source_sha256": "cb0f2aa5e41f70d12a3655985345996c27cd1d21ca028701ac519b3387a5bbeb",
+      "destination": "src/rescope/downstream/istar.py"
+    },
+    {
+      "source": "only_visium_region/scripts/iscout_model/prepare_visium_hd_uploaded_roi_set_experiment.py",
+      "source_sha256": "df0f417507f46d64ff54a31816192c13313d48c2abc30d6d467ec4cb8998f34f",
+      "destination": "src/rescope/downstream/prepare.py"
+    },
+    {
+      "source": "pipeline_models/bleep_run_files/visualize_bleep_prediction.py",
+      "source_sha256": "adf927cd36c04c986023a29ebd83362fc2ed69fad6a70210b6cf0e24f75c7fc6",
+      "destination": "src/rescope/downstream/bleep_expression.py"
+    },
+    {
+      "source": "pipeline_models/istar/impute.py",
+      "source_sha256": "38a8f4df44a2f8f91d4195d9cab0ad094f3655fad509f614f0ee353b4ac722fb",
+      "destination": "patches/istar-training.patch"
+    },
+    {
+      "source": "pipeline_models/istar/train.py",
+      "source_sha256": "bff61e3b9b1a97d1fbac562ee3d39d1d105c62782e6e080fe668a46866dff335",
+      "destination": "patches/istar-training.patch"
+    }
+  ]
 }

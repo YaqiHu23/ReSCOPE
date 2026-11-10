@@ -41,12 +41,24 @@ def main(argv=None):
     demo.add_argument("--output-dir", type=Path)
     pipeline = sub.add_parser("pipeline", help="WSI -> embeddings + cells -> independent ROI training")
     pipeline.add_argument("--config", type=Path, required=True)
-    pipeline.add_argument("--stage", choices=("all", "check", "embed", "patches", "segment", "cells", "config", "train"), default="all")
+    pipeline.add_argument("--stage", choices=("all", "check", "embed", "patches", "segment", "cells", "config", "train", "downstream"), default="all")
     pipeline.add_argument("--dry-run", action="store_true")
+    downstream = sub.add_parser("downstream", help="selected ROIs -> BLEEP/iSTAR expression prediction")
+    downstream.add_argument("--config", type=Path, required=True)
+    downstream.add_argument("--stage", choices=("all", "check", "prepare", "bleep", "istar", "summarize"), default="all")
+    downstream.add_argument("--num-rois", type=int, choices=(1, 2, 3))
+    downstream.add_argument("--method", choices=("both", "bleep", "istar"), default="both")
+    downstream.add_argument("--dry-run", action="store_true")
     args = parser.parse_args(argv)
     try:
         from .batch import run_budgets
-        if args.command == "pipeline":
+        if args.command == "downstream":
+            from .downstream.pipeline import run_downstream
+            result = run_downstream(args.config, stage=args.stage,
+                                    budgets=(args.num_rois,) if args.num_rois else (1, 2, 3),
+                                    methods=("bleep", "istar") if args.method == "both" else (args.method,),
+                                    dry_run=args.dry_run)
+        elif args.command == "pipeline":
             from .preprocessing.pipeline import run_pipeline as preprocess
             result = preprocess(args.config, args.stage, args.dry_run)
         elif args.command == "demo":

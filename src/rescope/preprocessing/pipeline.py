@@ -11,7 +11,7 @@ import sys
 
 from ..config import resolve_path, write_json
 
-STAGES = ("embed", "patches", "segment", "cells", "config", "train")
+STAGES = ("embed", "patches", "segment", "cells", "config", "train", "downstream")
 
 
 def load_pipeline(path):
@@ -23,7 +23,7 @@ def load_pipeline(path):
     known = {"sample", "wsi_path", "mpp", "tile_um", "work_dir", "uni_checkpoint", "cellvit_repo",
              "cellvit_checkpoint", "cellvit_python", "magnification", "embedding_batch_size",
              "embedding_workers", "cellvit_batch_size", "gpu", "reader", "device",
-             "hd_square_002um_dir", "rescope"}
+             "hd_square_002um_dir", "rescope", "downstream_config"}
     if set(cfg) - known:
         raise ValueError(f"Unknown pipeline fields: {sorted(set(cfg)-known)}")
     cfg = copy.deepcopy(cfg)
@@ -44,9 +44,9 @@ def load_pipeline(path):
     cfg.setdefault("rescope", {})
     if not isinstance(cfg["rescope"], dict) or set(cfg["rescope"]) - {"model", "train", "selection", "visium_hd_region", "runtime", "eval"}:
         raise ValueError("rescope contains unsupported sections")
-    for key in ("wsi_path", "work_dir", "uni_checkpoint", "cellvit_repo", "cellvit_checkpoint", "cellvit_python", "hd_square_002um_dir"):
+    for key in ("wsi_path", "work_dir", "uni_checkpoint", "cellvit_repo", "cellvit_checkpoint", "cellvit_python", "hd_square_002um_dir", "downstream_config"):
         if cfg.get(key) is not None:
-            cfg[key] = str(resolve_path(cfg[key], path.parent))
+            cfg[key] = str(resolve_path(cfg[key], path.parent, preserve_symlinks=key == "cellvit_python"))
     for key in ("mpp", "tile_um"):
         if isinstance(cfg[key], bool) or not isinstance(cfg[key], (float, int)) or not math.isfinite(cfg[key]) or cfg[key] <= 0:
             raise ValueError(f"{key} must be a finite positive number")
@@ -91,6 +91,8 @@ def preflight(cfg, stage):
     # Raw inputs remain persistent. Generated features and patches are intermediates.
     raw_files = [cfg["wsi_path"]]
     required = list(raw_files)
+    if cfg.get("downstream_config") and stage in ("all", "check", "downstream"):
+        required.append(cfg["downstream_config"])
     if stage in ("all", "check", "embed"):
         required += [cfg["uni_checkpoint"]]
     if stage in ("all", "check", "segment"):
@@ -153,7 +155,9 @@ def run_pipeline(config, stage="all", dry_run=False):
         raise ValueError("Unknown pipeline stage")
     cfg = load_pipeline(config)
     p, cmds = paths(cfg), commands(cfg)
-    selected = STAGES if stage == "all" else (stage,)
+    selected = tuple(s for s in STAGES if s != "downstream" or cfg.get("downstream_config")) if stage == "all" else (stage,)
+    if stage == "downstream" and not cfg.get("downstream_config"):
+        raise ValueError("Set downstream_config to a downstream YAML file before running this stage")
     if dry_run:
         for s in selected:
             print(shlex.join(cmds[s]) if s in cmds else f"{s}: {p['work']}")
@@ -208,6 +212,9 @@ def run_pipeline(config, stage="all", dry_run=False):
                 finally:
                     if project is not None:
                         os.environ["ISCOUT_PROJECT_ROOT"] = project
+            elif s == "downstream":
+                from ..downstream.pipeline import run_downstream
+                run_downstream(cfg["downstream_config"])
             report["status"] = "completed"
         except BaseException as exc:
             report.update(status="failed", error=f"{type(exc).__name__}: {exc}")

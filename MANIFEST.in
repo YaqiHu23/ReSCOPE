@@ -3,3 +3,8 @@ recursive-include examples *.yaml
 recursive-include tests *.py
 include requirements-preprocess.txt requirements-cellvit.txt THIRD_PARTY.md
 recursive-include scripts *.sh
+include requirements-bleep.txt requirements-istar.txt
+recursive-include scripts *.py
+recursive-include docs *.md
+recursive-include patches *.patch
+recursive-include licenses *.txt

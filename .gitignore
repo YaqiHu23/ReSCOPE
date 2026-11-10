@@ -27,3 +27,8 @@ work/
 *.svs
 *.h5
 *.parquet
+*.ckpt
+*.safetensors
+*.pkl
+*.pickle
+*.hdf5

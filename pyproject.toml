@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "rescope-roi"
-version = "1.0.0"
+version = "1.1.0"
 description = "ReSCOPE: independent ROI scorer training and biological-prior selection for 1, 2, and 3 ROIs"
 readme = "README.md"
 license = {file = "LICENSE"}

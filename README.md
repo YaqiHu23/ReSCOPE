@@ -1,11 +1,12 @@
 # ReSCOPE
 
-ReSCOPE selects representative tissue regions using image embeddings and cell annotations. This repository includes the preprocessing code and **independent training for 1, 2, and 3 ROIs**. Each budget gets its own newly initialized model and matching checkpoint.
+ReSCOPE selects representative tissue regions using image embeddings and cell annotations. This repository includes preprocessing, **independent training for 1, 2, and 3 ROIs**, and downstream **BLEEP/iSTAR expression prediction**. Each ROI budget gets its own newly initialized model and matching checkpoint.
 
 ```text
 H&E image ── UNI2-h ──────────────── embeddings.npy + meta.csv ─┐
           └─ CellViT ── cells.json ── cell_metadata.csv.gz ──────┤
                                                              └─ train/select 1, 2, 3 ROIs
+                                                                  └─ BLEEP / iSTAR + measured ROI expression
 ```
 
 ## 1. Set up the environments
@@ -90,6 +91,20 @@ runs/my_sample/
 
 Each ROI directory contains `best_model.pt`, `training_history.csv`, `rois.csv`, `rois.geojson`, and configuration/provenance JSON files. ROI and cell coordinates are full-resolution **x,y pixels**. Generated configs use the extractor's actual integer pixel spacing and full grid dimensions, including filtered background tiles.
 
+## 6. Run downstream BLEEP and iSTAR
+
+These workflows train on measured expression from cells **inside the selected ROI union**, predict cells outside it, and evaluate against their held-out counts. Cell-type annotations alone are insufficient: use the four count/metadata files produced by the optional Visium HD aggregation step, or equivalent aligned cell-level expression data.
+
+```bash
+PYTHON_BIN=python3.9 bash scripts/setup_downstream.sh
+# Follow docs/downstream.md to obtain official weights and configure examples/downstream.yaml.
+bash run.sh downstream --config examples/downstream.yaml
+```
+
+This runs both methods independently for all three ROI budgets. For one method/budget, append `--method bleep --num-rois 1`. The [downstream guide](docs/downstream.md) gives the official repository and weight links, required inputs, step-by-step commands, and output locations. Internal/data-trained checkpoints are not distributed; each user trains those models on their own ROI data.
+
+To include downstream prediction in the original full-pipeline command, configure both files and set `downstream_config: downstream.yaml` in `examples/pipeline.yaml`. Then `bash run.sh pipeline --config examples/pipeline.yaml` runs from the image through ROI selection and both downstream methods. Measured cell counts and the predefined gene panel are required.
+
 ## Existing embeddings or a quick demo
 
 If you already have embeddings and a cell table, edit `examples/config.yaml` and run:
@@ -106,6 +121,6 @@ Without real data or weights, check ROI training/selection on small synthetic CP
 bash run.sh demo --output-dir ./runs/demo
 ```
 
-The demo does not run UNI2-h or CellViT and is not a biological benchmark. New training records its seeds; it does not recreate archived checkpoint weights. The best checkpoint uses training loss, and evaluation loss is a same-sample diagnostic. Downstream BLEEP/iSTAR expression prediction is outside this ROI pipeline.
+The demo checks ROI selection only and is not a biological benchmark. New training records its seeds; it does not recreate archived checkpoint weights. The ROI scorer's best checkpoint uses training loss, and its evaluation loss is a same-sample diagnostic.
 
 Third-party sources and licenses: [THIRD_PARTY.md](THIRD_PARTY.md). Developer tests after preprocessing setup: `PYTHONPATH=src .venv-rescope/bin/python -m unittest discover -s tests -v`.

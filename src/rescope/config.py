@@ -55,12 +55,15 @@ def positive_int(value, name="num_rois"):
     return value
 
 
-def resolve_path(value, base):
+def resolve_path(value, base, *, preserve_symlinks=False):
     text = os.path.expandvars(str(value))
     if "$" in text:
         raise ValueError(f"Unset environment variable in path: {value}")
     path = Path(text).expanduser()
-    return (base / path if not path.is_absolute() else path).resolve()
+    path = base / path if not path.is_absolute() else path
+    # A venv's python symlink must be invoked through the venv path so Python
+    # finds pyvenv.cfg and uses that environment's installed dependencies.
+    return Path(os.path.abspath(path)) if preserve_symlinks else path.resolve()
 
 
 def load_config(config, *, num_rois=None, output_dir=None, device=None, epochs=None, base_dir=None):
